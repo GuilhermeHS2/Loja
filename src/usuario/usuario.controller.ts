@@ -3,13 +3,15 @@ import { Body, Get } from '@nestjs/common/decorators/http';
 import { UsuarioRepository } from './usuario.repository';
 @Controller('/usuarios')
 export class UsuarioController {
-  private usuarioRepository = new UsuarioRepository();
+
+  constructor(private usuarioRepository: UsuarioRepository) {}
 
   @Post()
   async criaUsuario(@Body() dadosDoUsuario) {
     this.usuarioRepository.salvar(dadosDoUsuario);
     return dadosDoUsuario;
   }
+
   @Get()
   async listUsuarios(){
     return this.usuarioRepository.listar();

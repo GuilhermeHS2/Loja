@@ -1,3 +1,6 @@
+import { Injectable } from "@nestjs/common";
+
+@Injectable()
 export class UsuarioRepository {
   private usuarios = [];
   //estou criando uma lista para salvar os usuarios
