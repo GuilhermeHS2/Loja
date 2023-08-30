@@ -1,9 +1,10 @@
 import { Controller, Post } from '@nestjs/common';
-import { Body, Get } from '@nestjs/common/decorators/http';
+import { Body, Get, Param, Put } from '@nestjs/common/decorators/http';
 import { UsuarioRepository } from './usuario.repository';
 import { CriaUsuarioDTO } from './dto/CriaUsuario.dto';
 import { UsuarioEntity } from './usuario.entity';
 import { v4 as uuid } from 'uuid';import { ListaUsuarioDTO } from './dto/ListaUsuario.fto';
+import { AtualizaUsuarioDTO } from './dto/AtualizaUsuario.dto';
 'uuid';
 
 
@@ -39,4 +40,13 @@ export class UsuarioController {
     );
     return usuariosLista;
   }
+  @Put('/:id')
+  async atualizaUsuario(@Param('id') id: string, @Body() novosDados: AtualizaUsuarioDTO) {
+      const usuarioAtualizado = await this.usuarioRepository.atualiza(id,novosDados)
+
+      return { 
+        usuario: usuarioAtualizado,
+        message: 'Usuario atualizado com suscesso',
+      }
+    }
 }
