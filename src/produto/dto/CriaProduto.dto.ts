@@ -23,7 +23,7 @@ descricao: string;
 }
 
 export class ImagemProdutoDTO {
-@IsUrl({ })
+@IsUrl({ })//nao consegui passar uma string/ verificar dps
 url: string;
 
 @IsString()
