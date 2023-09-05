@@ -12,7 +12,7 @@ import { AtualizaProdutoDTO } from './dto/atualizaProduto.dto';
 import { CriaProdutoDTO } from './dto/CriaProduto.dto';
 import { ProdutoEntity } from './produto.entity';
 import { ProdutoRepository } from './produto.repository';
-  
+
 @Controller('produtos')
 export class ProdutoController {
     constructor(private readonly produtoRepository: ProdutoRepository) {}
@@ -26,8 +26,8 @@ export class ProdutoController {
     produto.quantidade = dadosProduto.quantidade;
     produto.descricao = dadosProduto.descricao;
     produto.categoria = dadosProduto.categoria;
-    produto.caracteristicas = dadosProduto.caracteristicas;
-    produto.imagens = dadosProduto.imagens;
+    //produto.caracteristicas = dadosProduto.caracteristicas;
+    //produto.imagens = dadosProduto.imagens;
     const produtoCadastrado = this.produtoRepository.salva(produto);
     return produtoCadastrado;
     }
@@ -56,5 +56,5 @@ export class ProdutoController {
         mensagem: 'produto removido com sucesso',
         produto: produtoRemovido,
     };
-  }
+ }
 }
