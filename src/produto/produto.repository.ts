@@ -41,5 +41,5 @@ async remove(id: string) {
     const produtoRemovido = this.buscaPorId(id);
     this.produtos = this.produtos.filter((produto) => produto.id !== id);
     return produtoRemovido;
-  }
+    }
 }
