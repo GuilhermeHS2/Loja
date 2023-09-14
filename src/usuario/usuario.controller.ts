@@ -1,17 +1,22 @@
-import { Controller, Post } from '@nestjs/common';
-import { Body, Delete, Get, Param, Put } from '@nestjs/common/decorators/http';
-import { UsuarioRepository } from './usuario.repository';
-import { CriaUsuarioDTO } from './dto/CriaUsuario.dto';
-import { UsuarioEntity } from './usuario.entity';
-import { v4 as uuid } from 'uuid';import { ListaUsuarioDTO } from './dto/ListaUsuario.fto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { v4 as uuid } from 'uuid';
 import { AtualizaUsuarioDTO } from './dto/AtualizaUsuario.dto';
-'uuid';
-
+import { CriaUsuarioDTO } from './dto/CriaUsuario.dto';
+import { ListaUsuarioDTO } from './dto/ListaUsuario.dto';
+import { UsuarioEntity } from './usuario.entity';
+import { UsuarioService } from './usuario.service';
 
 @Controller('/usuarios')
 export class UsuarioController {
-
-  constructor(private usuarioRepository: UsuarioRepository) {}
+  constructor(private usuarioService: UsuarioService) {}
 
   @Post()
   async criaUsuario(@Body() dadosDoUsuario: CriaUsuarioDTO) {
@@ -21,42 +26,44 @@ export class UsuarioController {
     usuarioEntity.nome = dadosDoUsuario.nome;
     usuarioEntity.id = uuid();
 
-    this.usuarioRepository.salvar(usuarioEntity);
+    this.usuarioService.criaUsuario(usuarioEntity);
 
     return {
-      usuario:new ListaUsuarioDTO(usuarioEntity.id, usuarioEntity.nome),
-      message: 'Usuario criado com sucesso'}
-
+      usuario: new ListaUsuarioDTO(usuarioEntity.id, usuarioEntity.nome),
+      messagem: 'usuário criado com sucesso',
+    };
   }
 
   @Get()
-  async listUsuarios(){
-    const usuariosSalvos = await this.usuarioRepository.listar();
-    const usuariosLista = usuariosSalvos.map(
-      usuario => new ListaUsuarioDTO(
-        usuario.id,
-        usuario.nome
-      )
-    );
-    return usuariosLista;
+  async listUsuarios() {
+    const usuariosSalvos = await this.usuarioService.listUsuarios();
+
+    return usuariosSalvos;
   }
+
   @Put('/:id')
-  async atualizaUsuario(@Param('id') id: string, @Body() novosDados: AtualizaUsuarioDTO) {
-      const usuarioAtualizado = await this.usuarioRepository.atualiza(id,novosDados)
+  async atualizaUsuario(
+    @Param('id') id: string,
+    @Body() novosDados: AtualizaUsuarioDTO,
+  ) {
+    const usuarioAtualizado = await this.usuarioService.atualizaUsuario(
+      id,
+      novosDados,
+    );
 
-      return { 
-        usuario: usuarioAtualizado,
-        message: 'Usuario atualizado com suscesso',
-      }
-    }
+    return {
+      usuario: usuarioAtualizado,
+      messagem: 'usuário atualizado com sucesso',
+    };
+  }
 
-    @Delete('/:id')
-    async removeUsuario(@Param('id')id: string) {
-      const usuarioRemovido = await this.usuarioRepository.remove(id);
+  @Delete('/:id')
+  async removeUsuario(@Param('id') id: string) {
+    const usuarioRemovido = await this.usuarioService.deletaUsuario(id);
 
-      return{
-        usuario: usuarioRemovido,
-        mesage: 'usuario removido com sucesso'
-      }
-    }
+    return {
+      usuario: usuarioRemovido,
+      messagem: 'usuário removido com suceso',
+    };
+  }
 }
