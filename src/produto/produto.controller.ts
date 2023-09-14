@@ -62,6 +62,6 @@ export class ProdutoController {
     return {
         mensagem: 'produto removido com sucesso',
         produto: produtoRemovido,
-    };
- }
+        };
+    }
 }

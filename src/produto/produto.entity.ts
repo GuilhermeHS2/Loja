@@ -30,4 +30,7 @@ export class ProdutoEntity {
 
     @DeleteDateColumn({name: 'daleted_at'})
     deletedAt:string
+
+     // caracteristicas: CaracteristicaProduto[];
+  // imagens: ImagemProduto[];
 }
