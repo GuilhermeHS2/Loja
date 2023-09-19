@@ -25,11 +25,11 @@ export class ProdutoEntity {
     categoria: string;
 
     @OneToMany(() => ProdutoCaracteristicaEntity, (produtoCaracteristicaEntiy) => 
-      produtoCaracteristicaEntiy.produto)
+      produtoCaracteristicaEntiy.produto, {cascade:true, eager: true})
     caracteristicas: ProdutoCaracteristicaEntity[];
 
     @OneToMany(() => ProdutoImagemEntity, (produtoImagemEntiy) => 
-      produtoImagemEntiy.produto)
+      produtoImagemEntiy.produto, {cascade:true, eager:true})
     imagens: ProdutoImagemEntity[]; 
 
     @CreateDateColumn({name: 'created_at'})
