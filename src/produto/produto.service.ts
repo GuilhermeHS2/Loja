@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProdutoEntity } from "./produto.entity";
 import { Repository } from "typeorm";

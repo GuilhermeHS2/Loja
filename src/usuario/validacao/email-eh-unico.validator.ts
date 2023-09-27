@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import {
 registerDecorator,
@@ -25,7 +28,7 @@ async validate(
 }
 
 export const EmailEhUnico = (opcoesDeValidacao: ValidationOptions) => {
-return (objeto: Object, propriedade: string) => {
+return (objeto: object, propriedade: string) => {
     registerDecorator({
     target: objeto.constructor,
     propertyName: propriedade,

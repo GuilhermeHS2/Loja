@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 //class ListaCaracteristicaProdutoDTO {
     //nome: string;
     //descricao: string;
